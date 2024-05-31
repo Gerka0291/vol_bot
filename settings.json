@@ -1,5 +1,6 @@
 {
-  "percent": "1.3",
-  "period": "15",
-  "limit": "100"
+  "percent": "2",
+  "period": "60",
+  "limit": "100",
+  "resp": "20"
 }

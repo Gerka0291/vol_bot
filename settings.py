@@ -4,7 +4,7 @@ tradeListName = 'tradeList.txt'
 
 
 banListName='banList.json'
-sleepTime = 60*60*8
+sleepTime = 60
 
 
 

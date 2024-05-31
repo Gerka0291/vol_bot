@@ -30,7 +30,6 @@ def sendPhoto(path):
 def sendMessage(message):
   bot.send_message(myID,message)
 
-# sendMessage('kek')
 # @bot.message_handler(content_types=['text'])
 
 # def get_text_messages(message):

@@ -51,7 +51,7 @@ def makePlot(symb, df,  settings ):
     # df['Date'] = df['Date'].astype(np.int64)
     # df['Date'] = pd.to_datetime(df['Date'], unit = 'ms')
     df['Date'] = pd.to_datetime(df['Date'], unit= 's')
-    print(df['Date'])
+    # print(df['Date'])
     df = df.set_index('Date')
 
 
