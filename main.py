@@ -9,20 +9,20 @@ import logging
 import time
 import threading
 
-
-
 tickerList=[]
+
+with open(tradeListName) as f:
+        rawlist = f.read()
+        tickerList = list(rawlist.split(","))
+
+time.sleep(1)
+
 
 def main():
     logging.basicConfig(level=logging.INFO, filename="py_log.log",filemode="a",
                     format="%(asctime)s %(levelname)s %(message)s")
     # time.sleep(5)
     global settingsList, tickerList
-    settingsList = readJson(settingsName)
-    Limit = settingsList['limit']
-    interval = settingsList['period']
-    percent = settingsList['percent']
-    resp = settingsList['resp']
     print('kek')
 
     try:
@@ -36,41 +36,46 @@ def main():
         # try:
 
         while True:
+            if tickerList:
+                for symbol in tickerList:
+                    settingsList = readJson(settingsName)
+                    Limit = settingsList['limit']
+                    interval = settingsList['period']
+                    percent = settingsList['percent']
+                    resp = settingsList['resp']
 
-            for symbol in tickerList:
+                    print(symbol,len(tickerList))
+                    kLineDf = getKline(symbol, interval, Limit)
+                    
+                    event = check(kLineDf,float(percent))
+                    orderTime = kLineDf['Date'].iloc[-1]
+                    # print(orderTime)
+                    if event:
+                        try: 
 
-                print(symbol,len(tickerList))
-                kLineDf = getKline(symbol, interval, Limit)
-                
-                event = check(kLineDf,float(percent))
-                orderTime = kLineDf['Date'].iloc[-1]
-                # print(orderTime)
-                if event:
-                    try: 
+                            makePlot(symbol, kLineDf,  settingsList )
+                            # sendMessage(myID,symbol)
+                        except Exception as e:
+                            logging.error('sendMessage: ',exc_info=True)
 
-                        makePlot(symbol, kLineDf,  settingsList )
-                        # sendMessage(myID,symbol)
-                    except Exception as e:
-                        logging.error('sendMessage: ',exc_info=True)
+                        # добавили в бан лист
+                        tempBan = readJson(banListName)
+                        tempBan.append({'symbol': symbol,
+                                        'timeOfBan': str(orderTime),
+                                        'timeRespawn': str(orderTime + sleepTime * int(resp))
 
-                    # добавили в бан лист
-                    tempBan = readJson(banListName)
-                    tempBan.append({'symbol': symbol,
-                                    'timeOfBan': str(orderTime),
-                                    'timeRespawn': str(orderTime + sleepTime * int(resp))
+                                        })
+                        writeJson(banListName, tempBan)
 
-                                    })
-                    writeJson(banListName, tempBan)
-
-                    # удалили из текущего торгового листа
-                    tickerList.remove(symbol)
-                    with open(tradeListName, 'w') as output:
-                        output.write(','.join(tickerList))
+                        # удалили из текущего торгового листа
+                        tickerList.remove(symbol)
+                        with open(tradeListName, 'w') as output:
+                            output.write(','.join(tickerList))
 
 
-                # tab = getIndicators(kLineDf, settingsList)
-                time.sleep(1)
-        
+                    # tab = getIndicators(kLineDf, settingsList)
+                    time.sleep(1)
+            
     except Exception as e:
         logging.error(symbol,exc_info=True)
         time.sleep(30)

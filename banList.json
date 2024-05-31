@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "symbol": "GLMRUSDT",
+    "timeOfBan": "1717171200",
+    "timeRespawn": "1717171500"
+  },
+  {
+    "symbol": "KLAYUSDT",
+    "timeOfBan": "1717171200",
+    "timeRespawn": "1717171500"
+  },
+  {
+    "symbol": "RNDRUSDT",
+    "timeOfBan": "1717171200",
+    "timeRespawn": "1717171500"
+  },
+  {
+    "symbol": "THETAUSDT",
+    "timeOfBan": "1717171200",
+    "timeRespawn": "1717171500"
+  },
+  {
+    "symbol": "ZRXUSDT",
+    "timeOfBan": "1717171200",
+    "timeRespawn": "1717171500"
+  },
+  {
+    "symbol": "HBARUSDT",
+    "timeOfBan": "1717171200",
+    "timeRespawn": "1717171500"
+  },
+  {
+    "symbol": "ZILUSDT",
+    "timeOfBan": "1717171200",
+    "timeRespawn": "1717171500"
+  },
+  {
+    "symbol": "SLPUSDT",
+    "timeOfBan": "1717171200",
+    "timeRespawn": "1717171500"
+  },
+  {
+    "symbol": "HFTUSDT",
+    "timeOfBan": "1717171200",
+    "timeRespawn": "1717171500"
+  }
+]
